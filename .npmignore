@@ -1,0 +1,7 @@
+__tests__/
+.vscode/
+node_modules/
+.eslintrc.js
+babel.config.js
+index.html
+jest.config.js

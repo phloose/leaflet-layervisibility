@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui' />
+    <title>Leaflet Compare</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+    <script src="src/leaflet-toggle-layervisibility.js"></script>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+    }
+    </style>
+</head>
+
+<body>
+    <div id='map'></div>
+
+    <script>
+    const map = L.map('map').setView([51.505, -0.09], 13);
+
+    const osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap<\/a> contributors'
+    }).addTo(map);
+
+    const stamenLayer = L.tileLayer('//stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png', {
+        attribution:
+            'Map tiles by <a href="http://stamen.com">Stamen Design<\/a>, ' +
+            '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
+            'Map data {attribution.OpenStreetMap}',
+        minZoom: 1,
+        maxZoom: 16
+    }).addTo(map)
+
+    map.createPane("left")
+    map.createPane("right")
+
+    const leftCircle = L.circle([51.505, -0.088], {
+        pane: "left",
+        radius: 1000,
+        color: "#ff0000"
+    });
+
+    const rightCircle = L.circle([51.505, -0.09], {
+        pane: "right",
+        radius: 1000,
+        color: "#0000ff"
+    });
+
+    const layergroup = L.layerGroup([leftCircle, rightCircle]).addTo(map)
+    </script>
+</body>
+</html>
