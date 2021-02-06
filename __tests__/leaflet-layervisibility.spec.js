@@ -58,23 +58,36 @@ describe("leaflet-layervisibility", () => {
         });
     });
     describe("LayerGroup", () => {
+        let layer1;
+        let layer2;
+        let layer3;
+        let layer4;
+
+        beforeEach(() => {
+            layer1 = L.circle([0, 0], {
+                radius: 200,
+                name: "layer1",
+                quantitity: 50,
+            });
+            layer2 = L.circle([5, 0], { radius: 200, quantitity: 60 });
+            layer3 = L.circle([10, 0], { radius: 200, quantitity: 200 });
+            layer4 = L.circle([15, 0], { radius: 200, quantitity: 500 });
+        });
+
+        afterEach(() => {
+            layer1 = null;
+            layer2 = null;
+            layer3 = null;
+            layer4 = null;
+        });
+
         test("hiding a LayerGroup", () => {
-            const layer1 = L.circle([0, 0], { radius: 200 });
-            const layer2 = L.circle([10, 0], { radius: 500 });
             const layergroup = L.layerGroup([layer1, layer2]).addTo(map);
             layergroup.hide();
             expect(layer1.isHidden()).toBeTruthy();
             expect(layer2.isHidden()).toBeTruthy();
         });
         test("hiding layers by filter function", () => {
-            const layer1 = L.circle([0, 0], {
-                radius: 200,
-                name: "layer1",
-                quantitity: 50,
-            });
-            const layer2 = L.circle([5, 0], { radius: 200, quantitity: 60 });
-            const layer3 = L.circle([10, 0], { radius: 200, quantitity: 200 });
-            const layer4 = L.circle([15, 0], { radius: 200, quantitity: 500 });
             const layergroup = L.layerGroup([
                 layer1,
                 layer2,
@@ -92,14 +105,6 @@ describe("leaflet-layervisibility", () => {
             expect(layer4.isHidden()).toBeTruthy();
         });
         test("showing hidden layers by filter function", () => {
-            const layer1 = L.circle([0, 0], {
-                radius: 200,
-                name: "layer1",
-                quantitity: 50,
-            });
-            const layer2 = L.circle([5, 0], { radius: 200, quantitity: 60 });
-            const layer3 = L.circle([10, 0], { radius: 200, quantitity: 200 });
-            const layer4 = L.circle([15, 0], { radius: 200, quantitity: 500 });
             const layergroup = L.layerGroup([
                 layer1,
                 layer2,
