@@ -122,5 +122,42 @@ describe("leaflet-layervisibility", () => {
             expect(layer3.isHidden()).toBeTruthy();
             expect(layer4.isHidden()).toBeFalsy();
         });
+
+        test("geojson/FeatureGroup", () => {
+            const geojson = L.geoJSON({
+                type: "FeatureCollection",
+                features: [
+                    {
+                        type: "Feature",
+                        properties: { name: "feature1", amount: 10.5 },
+                        geometry: {
+                            type: "Point",
+                            coordinates: [0, 0],
+                        },
+                    },
+                    {
+                        type: "Feature",
+                        properties: { name: "feature2", amount: 11.5 },
+                        geometry: {
+                            type: "Point",
+                            coordinates: [1, 1],
+                        },
+                    },
+                    {
+                        type: "Feature",
+                        properties: { name: "feature3", amount: 13.5 },
+                        geometry: {
+                            type: "Point",
+                            coordinates: [-1, 2],
+                        },
+                    },
+                ],
+            }).addTo(map);
+            geojson.hide(layer => layer.feature.properties.name === "feature3");
+            const [feature1, feature2, feature3] = geojson.getLayers();
+            expect(feature1.isHidden()).toBeFalsy();
+            expect(feature2.isHidden()).toBeFalsy();
+            expect(feature3.isHidden()).toBeTruthy();
+        });
     });
 });
