@@ -36,6 +36,6 @@ L.LayerGroup.include({
         this.eachLayer(layer => (filterFunc(layer) ? layer.show() : null));
     },
     isHidden() {
-        return Object.values(this._layers).every(layer => layer.isHidden());
+        return this.getLayers().every(layer => layer.isHidden());
     },
 });
