@@ -6,7 +6,8 @@
     "types": "index.d.ts",
     "scripts": {
         "test": "jest --verbose __tests__/",
-        "start": "parcel index.html"
+        "start": "rollup -w -c rollup.config.js",
+        "build": "rollup -c rollup.config.js"
     },
     "keywords": [
         "leaflet"
@@ -25,8 +26,8 @@
         "eslint-plugin-prettier": "^3.3.1",
         "jest": "^26.6.3",
         "leaflet": "*",
-        "parcel": "^2.0.0-nightly.573",
-        "rimraf": "^3.0.2"
+        "rimraf": "^3.0.2",
+        "rollup": "^2.38.5"
     },
     "peerDependencies": {
         "leaflet": "^1.7.1"
