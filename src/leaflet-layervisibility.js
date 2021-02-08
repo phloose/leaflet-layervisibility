@@ -9,14 +9,22 @@ function validateFilter(filterFunc) {
     };
 }
 
+function setLayerDisplayStyle(value, context) {
+    context.getElement().style.display = value;
+    return context;
+}
+
+function setLayerGroupVisibility(mode, filter, context) {
+    const filterFunc = validateFilter(filter);
+    context.eachLayer(layer => (filterFunc(layer) ? layer[mode]() : null));
+}
+
 L.Layer.include({
     hide() {
-        this.getElement().style.display = "none";
-        return this;
+        return setLayerDisplayStyle("none", this);
     },
     show() {
-        this.getElement().style.display = "";
-        return this;
+        return setLayerDisplayStyle("", this);
     },
     isHidden() {
         return this.getElement().style.display === "none";
@@ -28,12 +36,10 @@ L.Layer.include({
 
 L.LayerGroup.include({
     hide(filter) {
-        const filterFunc = validateFilter(filter);
-        this.eachLayer(layer => (filterFunc(layer) ? layer.hide() : null));
+        setLayerGroupVisibility("hide", filter, this);
     },
     show(filter) {
-        const filterFunc = validateFilter(filter);
-        this.eachLayer(layer => (filterFunc(layer) ? layer.show() : null));
+        setLayerGroupVisibility("show", filter, this);
     },
     isHidden() {
         return this.getLayers().every(layer => layer.isHidden());
