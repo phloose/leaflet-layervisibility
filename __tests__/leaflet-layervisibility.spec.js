@@ -87,6 +87,16 @@ describe("leaflet-layervisibility", () => {
             expect(layer1.isHidden()).toBeTruthy();
             expect(layer2.isHidden()).toBeTruthy();
         });
+
+        test("toggle visibility of a LayerGroup", () => {
+            const layergroup = L.layerGroup([layer1, layer2]).addTo(map);
+            layergroup.toggleVisibility();
+            expect(layer1.isHidden()).toBeTruthy();
+            expect(layer2.isHidden()).toBeTruthy();
+            layergroup.toggleVisibility();
+            expect(layer1.isHidden()).toBeFalsy();
+            expect(layer2.isHidden()).toBeFalsy();
+        });
         test("hiding layers by filter function", () => {
             const layergroup = L.layerGroup([
                 layer1,
