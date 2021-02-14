@@ -160,4 +160,17 @@ describe("leaflet-layervisibility", () => {
             expect(feature3.isHidden()).toBeTruthy();
         });
     });
+    describe("Marker", () => {
+        test("hide/show also hides/shows a markers shadow", () => {
+            const marker = L.marker([0, 0]).addTo(map);
+            // eslint-disable-next-line no-underscore-dangle
+            expect(marker._shadow.style.display).toEqual("");
+            marker.hide();
+            // eslint-disable-next-line no-underscore-dangle
+            expect(marker._shadow.style.display).toEqual("none");
+            marker.show();
+            // eslint-disable-next-line no-underscore-dangle
+            expect(marker._shadow.style.display).toEqual("");
+        });
+    });
 });

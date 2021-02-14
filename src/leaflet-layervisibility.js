@@ -45,3 +45,20 @@ L.LayerGroup.include({
         return this.getLayers().every(layer => layer.isHidden());
     },
 });
+
+function setMarkerShadowDisplayStyle(value, context) {
+    // eslint-disable-next-line no-underscore-dangle
+    context._shadow.style.display = value;
+    return context;
+}
+
+L.Marker.include({
+    hide() {
+        setMarkerShadowDisplayStyle("none", this);
+        return L.Layer.prototype.hide.call(this, null);
+    },
+    show() {
+        setMarkerShadowDisplayStyle("", this);
+        return L.Layer.prototype.show.call(this, null);
+    },
+});
