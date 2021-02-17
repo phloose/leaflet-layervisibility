@@ -1,9 +1,8 @@
 {
-    "name": "leaflet-toggle-layervisibility",
+    "name": "leaflet-layervisibility",
     "version": "0.1.0",
-    "description": "Toggle visibility of vector layers ",
-    "main": "dist/leaflet-toggle-layervisibility.js",
-    "types": "index.d.ts",
+    "description": "Toggle visibility of leaflet layers",
+    "main": "dist/leaflet-layervisibility.js",
     "scripts": {
         "test": "jest --verbose __tests__/",
         "start": "rollup -w -c rollup.config.js",
