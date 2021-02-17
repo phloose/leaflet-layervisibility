@@ -7,7 +7,8 @@
         "test": "jest --verbose __tests__/",
         "start": "rollup -w -c rollup.config.js",
         "build": "rollup -c rollup.config.js",
-        "clean": "rimraf dist"
+        "clean": "rimraf dist",
+        "prepublishOnly": "npm run test && npm run clean && npm run build"
     },
     "keywords": [
         "leaflet"
