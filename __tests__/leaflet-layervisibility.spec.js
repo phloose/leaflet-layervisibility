@@ -58,23 +58,46 @@ describe("leaflet-layervisibility", () => {
         });
     });
     describe("LayerGroup", () => {
+        let layer1;
+        let layer2;
+        let layer3;
+        let layer4;
+
+        beforeEach(() => {
+            layer1 = L.circle([0, 0], {
+                radius: 200,
+                name: "layer1",
+                quantitity: 50,
+            });
+            layer2 = L.circle([5, 0], { radius: 200, quantitity: 60 });
+            layer3 = L.circle([10, 0], { radius: 200, quantitity: 200 });
+            layer4 = L.circle([15, 0], { radius: 200, quantitity: 500 });
+        });
+
+        afterEach(() => {
+            layer1 = null;
+            layer2 = null;
+            layer3 = null;
+            layer4 = null;
+        });
+
         test("hiding a LayerGroup", () => {
-            const layer1 = L.circle([0, 0], { radius: 200 });
-            const layer2 = L.circle([10, 0], { radius: 500 });
             const layergroup = L.layerGroup([layer1, layer2]).addTo(map);
             layergroup.hide();
             expect(layer1.isHidden()).toBeTruthy();
             expect(layer2.isHidden()).toBeTruthy();
         });
+
+        test("toggle visibility of a LayerGroup", () => {
+            const layergroup = L.layerGroup([layer1, layer2]).addTo(map);
+            layergroup.toggleVisibility();
+            expect(layer1.isHidden()).toBeTruthy();
+            expect(layer2.isHidden()).toBeTruthy();
+            layergroup.toggleVisibility();
+            expect(layer1.isHidden()).toBeFalsy();
+            expect(layer2.isHidden()).toBeFalsy();
+        });
         test("hiding layers by filter function", () => {
-            const layer1 = L.circle([0, 0], {
-                radius: 200,
-                name: "layer1",
-                quantitity: 50,
-            });
-            const layer2 = L.circle([5, 0], { radius: 200, quantitity: 60 });
-            const layer3 = L.circle([10, 0], { radius: 200, quantitity: 200 });
-            const layer4 = L.circle([15, 0], { radius: 200, quantitity: 500 });
             const layergroup = L.layerGroup([
                 layer1,
                 layer2,
@@ -92,14 +115,6 @@ describe("leaflet-layervisibility", () => {
             expect(layer4.isHidden()).toBeTruthy();
         });
         test("showing hidden layers by filter function", () => {
-            const layer1 = L.circle([0, 0], {
-                radius: 200,
-                name: "layer1",
-                quantitity: 50,
-            });
-            const layer2 = L.circle([5, 0], { radius: 200, quantitity: 60 });
-            const layer3 = L.circle([10, 0], { radius: 200, quantitity: 200 });
-            const layer4 = L.circle([15, 0], { radius: 200, quantitity: 500 });
             const layergroup = L.layerGroup([
                 layer1,
                 layer2,
@@ -116,6 +131,56 @@ describe("leaflet-layervisibility", () => {
             expect(layer2.isHidden()).toBeTruthy();
             expect(layer3.isHidden()).toBeTruthy();
             expect(layer4.isHidden()).toBeFalsy();
+        });
+
+        test("geojson/FeatureGroup", () => {
+            const geojson = L.geoJSON({
+                type: "FeatureCollection",
+                features: [
+                    {
+                        type: "Feature",
+                        properties: { name: "feature1", amount: 10.5 },
+                        geometry: {
+                            type: "Point",
+                            coordinates: [0, 0],
+                        },
+                    },
+                    {
+                        type: "Feature",
+                        properties: { name: "feature2", amount: 11.5 },
+                        geometry: {
+                            type: "Point",
+                            coordinates: [1, 1],
+                        },
+                    },
+                    {
+                        type: "Feature",
+                        properties: { name: "feature3", amount: 13.5 },
+                        geometry: {
+                            type: "Point",
+                            coordinates: [-1, 2],
+                        },
+                    },
+                ],
+            }).addTo(map);
+            geojson.hide(layer => layer.feature.properties.name === "feature3");
+            const [feature1, feature2, feature3] = geojson.getLayers();
+            expect(feature1.isHidden()).toBeFalsy();
+            expect(feature2.isHidden()).toBeFalsy();
+            expect(feature3.isHidden()).toBeTruthy();
+        });
+    });
+    describe("Marker", () => {
+        test("hide/show also hides/shows a markers shadow", () => {
+            const marker = L.marker([0, 0]).addTo(map);
+            // eslint-disable-next-line no-underscore-dangle
+            expect(marker._shadow.style.display).toEqual("");
+            marker.hide();
+            // eslint-disable-next-line no-underscore-dangle
+            expect(marker._shadow.style.display).toEqual("none");
+            marker.show();
+            // eslint-disable-next-line no-underscore-dangle
+            expect(marker._shadow.style.display).toEqual("");
         });
     });
 });

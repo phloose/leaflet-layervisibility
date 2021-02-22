@@ -1,7 +1,9 @@
 __tests__/
 .vscode/
 node_modules/
+coverage/
 .eslintrc.js
 babel.config.js
 index.html
 jest.config.js
+rollup.config.js

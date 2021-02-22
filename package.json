@@ -1,12 +1,14 @@
 {
-    "name": "leaflet-toggle-layervisibility",
+    "name": "leaflet-layervisibility",
     "version": "0.1.0",
-    "description": "Toggle visibility of vector layers ",
-    "main": "dist/leaflet-toggle-layervisibility.js",
-    "types": "index.d.ts",
+    "description": "Toggle visibility of leaflet layers",
+    "main": "dist/leaflet-layervisibility.js",
     "scripts": {
         "test": "jest --verbose __tests__/",
-        "start": "parcel index.html"
+        "start": "rollup -w -c rollup.config.js",
+        "build": "rollup -c rollup.config.js",
+        "clean": "rimraf dist",
+        "prepublishOnly": "npm run test && npm run clean && npm run build"
     },
     "keywords": [
         "leaflet"
@@ -25,8 +27,8 @@
         "eslint-plugin-prettier": "^3.3.1",
         "jest": "^26.6.3",
         "leaflet": "*",
-        "parcel": "^2.0.0-nightly.573",
-        "rimraf": "^3.0.2"
+        "rimraf": "^3.0.2",
+        "rollup": "^2.38.5"
     },
     "peerDependencies": {
         "leaflet": "^1.7.1"
