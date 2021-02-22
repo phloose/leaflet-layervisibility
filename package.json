@@ -1,6 +1,6 @@
 {
     "name": "leaflet-layervisibility",
-    "version": "0.1.0",
+    "version": "0.1.0post1",
     "description": "Toggle visibility of leaflet layers",
     "main": "dist/leaflet-layervisibility.js",
     "scripts": {
@@ -32,5 +32,13 @@
     },
     "peerDependencies": {
         "leaflet": "^1.7.1"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/phloose/leaflet-layervisibility.git"
+    },
+    "bugs": {
+        "url": "https://github.com/phloose/leaflet-layervisibility/issues"
+    },
+    "homepage": "https://github.com/phloose/leaflet-layervisibility"
 }
