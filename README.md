@@ -14,7 +14,12 @@ show a layer depending on a condition.
 For an example you can explore the `Leaflet` geometries of the [index.html](index.html)
 with which you can play around
 [here](https://phloose.github.io/leaflet-layervisibility/) (open up the developer
-tools...).
+tools...). E.g. for hiding only the circle with radius `500` of the `circleLayerGroup`
+you would call `hide` on it like so:
+
+```javascript
+circleLayerGroup.hide(layer => layer.options.radius === 500)
+```
 
 The plugin does works with `Leaflet` 1.7.1 but older versions should also work, although
 this has not been tested yet.
