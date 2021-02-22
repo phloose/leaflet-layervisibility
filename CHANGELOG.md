@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.0post1] - 2021-02-22
+
+### Added
+
+- Add links to github repository to package.json
+
+### Changed
+
+- Republish from master branch
+
+
 ## [0.1.0] - 2021-02-22
 
 ### Added
