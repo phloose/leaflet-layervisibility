@@ -1,6 +1,7 @@
 __tests__/
 .vscode/
 node_modules/
+coverage/
 .eslintrc.js
 babel.config.js
 index.html
