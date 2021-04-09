@@ -15,6 +15,7 @@
     ],
     "author": "Philipp Loose",
     "license": "MIT",
+    "types": "types/leaflet-layervisibility.d.ts",
     "devDependencies": {
         "@babel/preset-env": "^7.12.13",
         "@types/jest": "^26.0.20",
