@@ -38,10 +38,12 @@ function setLayerDisplayStyle(value, context) {
  * @param {filterFunc} filter Filter function to hide/show specific layers of a
  * layergroup based on a condition. Receives the current layer as argument.
  * @param {L.LayerGroup} context The layergroup
+ * @returns {L.LayerGroup} The layergroup
  */
 function setLayerGroupVisibility(mode, filter, context) {
     const filterFunc = validateFilter(filter);
     context.eachLayer(layer => (filterFunc(layer) ? layer[mode]() : null));
+    return context;
 }
 
 L.Layer.include({
@@ -86,18 +88,20 @@ L.LayerGroup.include({
      *
      * @param {filterFunc} filter Optional filter function to hide specific layers of a
      * layergroup based on a condition. Receives the current layer as argument.
+     * @returns {L.LayerGroup} The layergroup instance
      */
     hide(filter) {
-        setLayerGroupVisibility("hide", filter, this);
+        return setLayerGroupVisibility("hide", filter, this);
     },
     /**
      * Show a layergroup after it has been hidden
      *
      * @param {filterFunc} filter Optional filter function to show specific layers of a
      * layergroup based on a condition. Receives the current layer as argument.
+     * @returns {L.LayerGroup} The layergroup instance
      */
     show(filter) {
-        setLayerGroupVisibility("show", filter, this);
+        return setLayerGroupVisibility("show", filter, this);
     },
     /**
      * Determines whether a layergroup is hidden. Returns true if all layers
