@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "checkJs": true,
+        "baseUrl": ".",
+        "typeRoots": [
+            "./types/",
+            "./node_modules/@types/",
+        ],
+        "sourceMap": false
+    },
+}
