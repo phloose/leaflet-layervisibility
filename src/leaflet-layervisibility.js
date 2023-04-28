@@ -48,7 +48,9 @@ L.LayerGroup.include({
 
 function setMarkerShadowDisplayStyle(value, context) {
     // eslint-disable-next-line no-underscore-dangle
-    context._shadow.style.display = value;
+    if(context._shadow){
+        context._shadow.style.display = value;
+    }
     return context;
 }
 
