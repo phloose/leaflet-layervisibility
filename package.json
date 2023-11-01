@@ -1,6 +1,6 @@
 {
     "name": "leaflet-layervisibility",
-    "version": "0.1.0post1",
+    "version": "0.1.1",
     "description": "Toggle visibility of leaflet layers",
     "main": "dist/leaflet-layervisibility.js",
     "scripts": {
